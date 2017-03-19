@@ -26,7 +26,7 @@ class Php implements SerializerInterface
 
     public function unserialize(string $str)
     {
-        return eval('return ' . $str);
+        return eval('return ' . $str . ';');
     }
 
     public function getExt(): string

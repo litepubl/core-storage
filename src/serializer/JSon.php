@@ -16,7 +16,7 @@ class JSon implements SerializerInterface
 
     public function __construct(int $attr = 0, bool $pretty = false)
     {
-        if ($attr)) {
+        if ($attr) {
             $this->attr = $attr;
         } else {
             $this->attr = JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
@@ -29,12 +29,12 @@ class JSon implements SerializerInterface
 
     public function serialize(array $data): string
     {
-        return \json_encode($data, JSON_NUMERIC_CHECK | JSON_UNESCAPED_UNICODE | (Config::$debug ? JSON_PRETTY_PRINT : 0));
+        return \json_encode($data, $this->attr);
     }
 
     public function unserialize(string $str)
     {
-        return \json_decode($s, true);
+        return \json_decode($str, true);
     }
 
     public function getExt(): string

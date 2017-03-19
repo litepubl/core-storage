@@ -1,7 +1,7 @@
 <?php
 namespace litepubl\core\storage;
 
-class Locker implements LockerInterface
+class FileLocker implements LockerInterface
 {
     private $fileName;
     private $handler;
