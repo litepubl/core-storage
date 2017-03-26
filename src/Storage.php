@@ -78,8 +78,8 @@ class Storage implements StorageInterface
                 //replace file
                 $curfile = $filename . $ext;
             if (\file_exists($curfile)) {
-                $backfile = $filename . '.bak' . $this->getExt();
-                $this->delete($backfile);
+                $backfile = $filename . '.bak' . $ext;
+                $this->removeFile($backfile);
                     \rename($curfile, $backfile);
             }
 

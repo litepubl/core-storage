@@ -9,20 +9,6 @@ use litepubl\core\storage\serializer\Serialize;
 
 class SerializerTest extends \Codeception\Test\Unit
 {
-    private $data = [
-    's' => 'v',
-    'i' => 4,
-    'b' => false,
-    'f' => 3.14,
-    'a' => [
-    'q' => 'w',
-    ],
-    'items' => [
-    ['id' => 1],
-    ['id' => 2],
-    ]
-    ];
-
     public function testMe()
     {
         $this->testSerializer(new Php());
@@ -33,15 +19,16 @@ class SerializerTest extends \Codeception\Test\Unit
 
     private function testSerializer(SerializerInterface $serializer)
     {
-        $s = $serializer->serialize($this->data);
-        $data = $serializer->unserialize($s);
-        $this->assertEquals($this->data, $data);
+$data = new Data();
+        $s = $serializer->serialize($data->mok);
+        $a = $serializer->unserialize($s);
+        $this->assertEquals($data->mok, $a);
 
         $fileName = \Codeception\Configuration::outputDir() . '/serializer' . $serializer->getExt();
-        $serializer->save($fileName, $this->data);
+        $serializer->save($fileName, $data->mok);
         $this->assertFileExists($fileName);
-        $data = $serializer->load($fileName);
-        $this->assertEquals($this->data, $data);
+        $a = $serializer->load($fileName);
+        $this->assertEquals($data->mok, $a);
         unlink($fileName);
     }
 }

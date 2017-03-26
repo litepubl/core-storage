@@ -14,20 +14,6 @@ use litepubl\core\logmanager\LazyProxy;
 
 class StorageTest extends \Codeception\Test\Unit
 {
-    private $data = [
-    's' => 'v',
-    'i' => 4,
-    'b' => false,
-    'f' => 3.14,
-    'a' => [
-    'q' => 'w',
-    ],
-    'items' => [
-    ['id' => 1],
-    ['id' => 2],
-    ]
-    ];
-
     public function testMe()
     {
         $serializer = new Php();
@@ -45,6 +31,14 @@ class StorageTest extends \Codeception\Test\Unit
 
     private function testStorage(StorageInterface $storage)
     {
+        $data = new Data();
+        $data->setData($data->mok);
+        $this->assertTrue($storage->save($data));
+        $data = new Data();
+        $this->assertTrue($storage->load($data));
+        $this->assertEquals($data->mok, $data->getData());
 
+        //$storage->saveData($data->mok);
+        //$a = $storage
     }
 }
