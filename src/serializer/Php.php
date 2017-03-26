@@ -21,12 +21,12 @@ class Php implements SerializerInterface
 
     public function serialize(array $data): string
     {
-        return \var_export($data, true);
+        return sprintf('return %s;', \var_export($data, true));
     }
 
     public function unserialize(string $str)
     {
-        return eval('return ' . $str . ';');
+        return eval($str);
     }
 
     public function getExt(): string
@@ -42,9 +42,9 @@ class Php implements SerializerInterface
     public function save(string $fileName, $data): bool
     {
         $str = $this->serialize($data);
-        if (\file_put_contents($fileName, \sprintf('<?php return %s;', $str))) {
+        if (\file_put_contents($fileName, '<?php ' . $str)) {
             if ($this->opcacheEnabled) {
-                \opcache_compile_file($filename);
+                \opcache_compile_file($fileName);
             }
 
                 return true;

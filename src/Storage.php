@@ -15,7 +15,7 @@ class Storage implements StorageInterface
     {
         $this->serializer = $serializer;
         $this->logManager = $logManager;
-        $this->path = $path;
+        $this->path = rtrim($path, '\/') . '/';
         $this->perm = $perm;
     }
 

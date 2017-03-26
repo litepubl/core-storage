@@ -23,6 +23,14 @@ class SerializerTest extends \Codeception\Test\Unit
     ]
     ];
 
+    public function testMe()
+    {
+        $this->testSerializer(new Php());
+        $this->testSerializer(new Serialize());
+        $this->testSerializer(new JSon());
+        $this->testSerializer(new JSon(0, true));
+    }
+
     private function testSerializer(SerializerInterface $serializer)
     {
         $s = $serializer->serialize($this->data);
@@ -34,15 +42,6 @@ class SerializerTest extends \Codeception\Test\Unit
         $this->assertFileExists($fileName);
         $data = $serializer->load($fileName);
         $this->assertEquals($this->data, $data);
-
         unlink($fileName);
-    }
-
-    public function testMe()
-    {
-        $this->testSerializer(new Php());
-        $this->testSerializer(new Serialize());
-        $this->testSerializer(new JSon());
-        $this->testSerializer(new JSon(0, true));
     }
 }
