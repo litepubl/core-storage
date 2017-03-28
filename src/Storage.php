@@ -49,10 +49,15 @@ class Storage implements StorageInterface
         return $this->path . $storable->getBaseName();
     }
 
+    public function has(Storable $storable): bool
+    {
+        return \file_exists($this->getFileName($storable). $this->serializer->getExt());
+    }
+
     public function loadData(string $fileName): ? array
     {
         if (\file_exists($fileName)) {
-                return $this->serializer->load($filename);
+                return $this->serializer->load($fileName);
         }
 
         return null;

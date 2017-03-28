@@ -6,6 +6,7 @@ interface StorageInterface
 {
     public function load(Storable $storable): bool;
     public function save(Storable $storable): bool;
+    public function has(Storable $storable): bool;
     public function remove(Storable $storable): bool;
     public function getFileName(Storable $storable): string;
     public function loadData(string $fileName): ? array;

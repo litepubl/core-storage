@@ -38,6 +38,10 @@ class StorageTest extends \Codeception\Test\Unit
         $this->assertTrue($storage->load($data));
         $this->assertEquals($data->mok, $data->getData());
 
+        $this->assertTrue($storage->has($data));
+        $storage->remove($data);
+        $this->assertFalse($storage->has($data));
+
         //$storage->saveData($data->mok);
         //$a = $storage
     }
