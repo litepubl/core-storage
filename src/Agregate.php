@@ -10,7 +10,7 @@
 
 namespace litepubl\core\storage;
 
-class Cache implements StorageInterface
+class Agregate implements StorageInterface
 {
     protected $storage;
     protected $cache;
@@ -19,6 +19,11 @@ class Cache implements StorageInterface
     {
             $this->storage = $storage;
         $this->cache = $cacheSttorage;
+    }
+
+    public function has(Storable $storable): bool
+    {
+        return $this->cache->has($storable) || $this->storage->has($storable);
     }
 
     public function load(Storable $storable): bool
@@ -45,34 +50,10 @@ class Cache implements StorageInterface
         return $this->storage->getFileName($storable);
     }
 
-    public function loadData(string $fileName): ? array
-    {
-        $result = $this->cache->loadData($fileName);
-        if (!$result) {
-                $result = $this->storage->loadData($fileName);
-            if ($result) {
-                $this->cache->saveData($fileName, $result);
-            }
-        }
-
-        return $result;
-    }
-
-    public function saveData(string $fileName, array $data): bool
-    {
-        $this->cache->saveData($fileName, $data);
-        return $this->storage->saveData($fileName, $data);
-    }
-
     public function remove(Storable $storable ): bool
     {
         $this->cache->remove($storable);
         return $this->storage->remove($storable);
     }
 
-    public function removeFile(string $fileName): bool
-    {
-        $this->cache->removeFile($fileName);
-        return $this->storage->removeFile($fileName);
-    }
 }

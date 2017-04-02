@@ -22,10 +22,13 @@ class Storage implements StorageInterface
     public function load(Storable $storable): bool
     {
         try {
-            $fileName = $this->getFileName($storable). $this->serializer->getExt();
-            if ($data = $this->loadData($fileName)) {
-                $storable->setData($data);
-                return true;
+            $fileName = $this->getFileName($storable);
+            if (\file_exists($fileName)) {
+                $data = $this->serializer->load($fileName);
+                if ($data) {
+                    $storable->setData($data);
+                    return true;
+                }
             }
         } catch (\Throwable $e) {
             $this->logException(
@@ -41,32 +44,17 @@ class Storage implements StorageInterface
 
     public function save(Storable $storable): bool
     {
-        return $this->saveFile($this->getFileName($storable), $this->serializer->getExt(), $storable->getData());
+        return $this->saveFile($this->path . $storable->getBaseName(), $this->serializer->getExt(), $storable->getData());
     }
 
     public function getFilename(Storable $storable): string
     {
-        return $this->path . $storable->getBaseName();
+        return $this->path . $storable->getBaseName() .  $this->serializer->getExt();
     }
 
     public function has(Storable $storable): bool
     {
-        return \file_exists($this->getFileName($storable). $this->serializer->getExt());
-    }
-
-    public function loadData(string $fileName): ? array
-    {
-        if (\file_exists($fileName)) {
-                return $this->serializer->load($fileName);
-        }
-
-        return null;
-    }
-
-    public function saveData(string $fileName, array $data): bool
-    {
-        $dot = \strrpos($fileName, '.');
-        return $this->saveFile(substr($fileName, 0, $dot), substr($fileName, $dot), $data);
+        return \file_exists($this->getFileName($storable));
     }
 
     protected function saveFile(string $filename, string $ext, array $data): bool
@@ -100,12 +88,12 @@ class Storage implements StorageInterface
 
     public function remove(Storable $storable ): bool
     {
-        $fileName = $this->getFileName($storable);
+        $fileName = $this->path . $storable->getBaseName();
         $this->removeFile($fileName . '.bak' . $this->serializer->getExt());
         return $this->removeFile($fileName . $this->serializer->getExt());
     }
 
-    public function removeFile(string $fileName): bool
+    protected function removeFile(string $fileName): bool
     {
         if (\file_exists($fileName)) {
             if (!\unlink($fileName)) {
