@@ -2,11 +2,13 @@
 
 namespace litepubl\tests\storage;
 
-use litepubl\core\storage\Storage;
 use litepubl\core\storage\StorageInterface;
+use litepubl\core\storage\Storage;
 use litepubl\core\storage\Pool;
 use litepubl\core\storage\LockerInterface;
 use litepubl\core\storage\FileLocker;
+use litepubl\core\storage\MemCacheStorage;
+use litepubl\core\storage\Agregate;
 use litepubl\core\storage\Storable;
 use litepubl\core\storage\serializer\SerializerInterface;
 use litepubl\core\storage\serializer\JSon;
@@ -31,13 +33,24 @@ class StorageTest extends \Codeception\Test\Unit
         $this->assertInstanceOf(Storage::class, $storage);
         $this->testStorage($storage);
 
-$pool = new Pool($storage, new FileLocker(\Codeception\Configuration::outputDir() . 'storage.lok'));
+        $pool = new Pool($storage, new FileLocker(\Codeception\Configuration::outputDir() . 'storage.lok'));
         $this->assertInstanceOf(Pool::class, $pool);
         $this->testStorage($pool);
-$pool->commit();
+        $pool->commit();
 
-$pool = new Pool($storage, new FileLocker(\Codeception\Configuration::outputDir() . 'storage.lok'));
+        $pool = new Pool($storage, new FileLocker(\Codeception\Configuration::outputDir() . 'storage.lok'));
         $this->testStorage($pool);
+
+        if (class_exists(\Memcache::class)) {
+            $memCache = new \Memcache();
+            $memCache->connect('127.0.0.1', 11211);
+
+                $mem = new MemCacheStorage($serializer, $memCache, 'test', 3600);
+                $this->testStorage($mem);
+
+            $agregate = new Agregate($storage, $mem);
+                $this->testStorage($agregate);
+        }
     }
 
     private function testStorage(StorageInterface $storage)

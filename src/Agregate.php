@@ -18,7 +18,7 @@ class Agregate implements StorageInterface
     public function __construct(StorageInterface $storage, StorageInterface $cache) 
     {
             $this->storage = $storage;
-        $this->cache = $cacheSttorage;
+        $this->cache = $cache;
     }
 
     public function has(Storable $storable): bool
