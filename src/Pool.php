@@ -3,7 +3,7 @@ namespace litepubl\core\storage;
 
 use litepubl\core\Storage\Locker;
 
-class Pool implements StorageInterface, Storable
+class Pool implements PoolInterface, Storable
 {
     protected $data;
     protected $instances;

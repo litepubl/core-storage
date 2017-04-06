@@ -1,20 +1,21 @@
 <?php
+
 namespace litepubl\core\storage;
 
 use litepubl\core\storage\serializer\SerializerInterface;
-use litepubl\core\logmanager\LogManagerInterface;
+use litepubl\core\logmanager\FactoryInterface as LogFactory;
 
 class Storage implements StorageInterface
 {
     protected $serializer;
-    protected $logManager = null;
+    protected $logFactory;
     protected $path = '';
     protected $perm = 0666;
 
-    public function __construct(SerializerInterface $serializer, LogManagerInterface $logManager, string $path, int $perm = 0666)
+    public function __construct(SerializerInterface $serializer, LogFactory $logFactory, string $path, int $perm = 0666)
     {
         $this->serializer = $serializer;
-        $this->logManager = $logManager;
+        $this->logFactory = $logFactory;
         $this->path = rtrim($path, '\/') . '/';
         $this->perm = $perm;
     }
@@ -31,7 +32,7 @@ class Storage implements StorageInterface
                 }
             }
         } catch (\Throwable $e) {
-            $this->logException(
+            $this->logFactory->getLogManager()->logException(
                 $e, [
                 'filename' => $fileName,
                 'serializer' => get_class($this->serializer),
@@ -44,7 +45,16 @@ class Storage implements StorageInterface
 
     public function save(Storable $storable): bool
     {
+try {
         return $this->saveFile($this->path . $storable->getBaseName(), $this->serializer->getExt(), $storable->getData());
+        } catch (\Throwable $e) {
+            $this->logFactory->getLogManager()->logException(
+                $e, [
+                'storable' => get_class($storable),
+                'serializer' => get_class($this->serializer),
+                ]
+            );
+        }
     }
 
     public function getFilename(Storable $storable): string
@@ -61,7 +71,7 @@ class Storage implements StorageInterface
     {
         $tmp = $filename . '.tmp' . $ext;
         if (!$this->serializer->save($tmp, $data)) {
-            $this->error(\sprintf('Error write to file "%s"', $tmp));
+            $this->logFactory->getLogManager()->error(\sprintf('Error write to file "%s"', $tmp));
         } else {
 
             if ($this->perm) {
@@ -79,7 +89,7 @@ class Storage implements StorageInterface
             if (\rename($tmp, $curfile)) {
                 return true;
             } else {
-                    $this->error(sprintf('Error rename temp file "%s" to "%s"', $tmp, $curfile));
+                                $this->logFactory->getLogManager()->error(sprintf('Error rename temp file "%s" to "%s"', $tmp, $curfile));
             }
         }
 
@@ -105,15 +115,5 @@ class Storage implements StorageInterface
         }
 
         return false;
-    }
-
-    protected function logException(\Throwable $e, array $context = [])
-    {
-            $this->logManager->logException($e, $context);
-    }
-
-    protected function error(string $mesg)
-    {
-        $this->logManager->trace($mesg);
     }
 }
