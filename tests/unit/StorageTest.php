@@ -8,7 +8,7 @@ use litepubl\core\storage\Pool;
 use litepubl\core\storage\LockerInterface;
 use litepubl\core\storage\FileLocker;
 use litepubl\core\storage\MemCacheStorage;
-use litepubl\core\storage\Agregate;
+use litepubl\core\storage\Composite;
 use litepubl\core\storage\Storable;
 use litepubl\core\storage\serializer\SerializerInterface;
 use litepubl\core\storage\serializer\JSon;
@@ -48,8 +48,8 @@ class StorageTest extends \Codeception\Test\Unit
                 $mem = new MemCacheStorage($serializer, $memCache, 'test', 3600);
                 $this->testStorage($mem);
 
-            $agregate = new Agregate($storage, $mem);
-                $this->testStorage($agregate);
+            $composite = new Composite($storage, $mem);
+                $this->testStorage($composite);
         }
     }
 

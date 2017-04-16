@@ -1,21 +1,12 @@
 <?php
-/**
- * Lite Publisher CMS
- *
- * @copyright 2010 - 2016 Vladimir Yushko http://litepublisher.com/ http://litepublisher.ru/
- * @license   https://github.com/litepubl/cms/blob/master/LICENSE.txt MIT
- * @link      https://github.com/litepubl\cms
- * @version   7.07
-  */
-
 namespace litepubl\core\storage;
 
-class Agregate implements StorageInterface
+class Composite implements StorageInterface
 {
     protected $storage;
     protected $cache;
 
-    public function __construct(StorageInterface $storage, StorageInterface $cache) 
+    public function __construct(StorageInterface $storage, StorageInterface $cache)
     {
             $this->storage = $storage;
         $this->cache = $cache;
@@ -50,10 +41,9 @@ class Agregate implements StorageInterface
         return $this->storage->getFileName($storable);
     }
 
-    public function remove(Storable $storable ): bool
+    public function remove(Storable $storable): bool
     {
         $this->cache->remove($storable);
         return $this->storage->remove($storable);
     }
-
 }
