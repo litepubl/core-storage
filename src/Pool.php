@@ -107,14 +107,13 @@ class Pool implements PoolInterface, Storable
             }
                   return true;
         } else {
-
             $this->error('Storage locked, data not saved');
             return false;
         }
     }
 
-    public function isInstalled(): bool
+    public function getInstalled(): bool
     {
-        return count($this->data);
+        return count($this->data) > 0;
     }
 }
