@@ -12,12 +12,12 @@ class Composite implements StorageInterface
         $this->cache = $cache;
     }
 
-    public function has(Storable $storable): bool
+    public function has(StorableInterface $storable): bool
     {
         return $this->cache->has($storable) || $this->storage->has($storable);
     }
 
-    public function load(Storable $storable): bool
+    public function load(StorableInterface $storable): bool
     {
         $result = $this->cache->load($storable);
         if (!$result) {
@@ -30,18 +30,18 @@ class Composite implements StorageInterface
         return $result;
     }
 
-    public function save(Storable $storable): bool
+    public function save(StorableInterface $storable): bool
     {
         $this->cache->save($storable);
         return $this->storage->save($storable);
     }
 
-    public function getFilename(Storable $storable): string
+    public function getFilename(StorableInterface $storable): string
     {
         return $this->storage->getFileName($storable);
     }
 
-    public function remove(Storable $storable): bool
+    public function remove(StorableInterface $storable): bool
     {
         $this->cache->remove($storable);
         return $this->storage->remove($storable);

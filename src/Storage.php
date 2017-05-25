@@ -20,7 +20,7 @@ class Storage implements StorageInterface
         $this->perm = $perm;
     }
 
-    public function load(Storable $storable): bool
+    public function load(StorableInterface $storable): bool
     {
         try {
             $fileName = $this->getFileName($storable);
@@ -43,10 +43,10 @@ class Storage implements StorageInterface
         return false;
     }
 
-    public function save(Storable $storable): bool
+    public function save(StorableInterface $storable): bool
     {
-try {
-        return $this->saveFile($this->path . $storable->getBaseName(), $this->serializer->getExt(), $storable->getData());
+        try {
+                return $this->saveFile($this->path . $storable->getBaseName(), $this->serializer->getExt(), $storable->getData());
         } catch (\Throwable $e) {
             $this->logFactory->getLogManager()->logException(
                 $e, [
@@ -57,12 +57,12 @@ try {
         }
     }
 
-    public function getFilename(Storable $storable): string
+    public function getFilename(StorableInterface $storable): string
     {
         return $this->path . $storable->getBaseName() .  $this->serializer->getExt();
     }
 
-    public function has(Storable $storable): bool
+    public function has(StorableInterface $storable): bool
     {
         return \file_exists($this->getFileName($storable));
     }
@@ -73,7 +73,6 @@ try {
         if (!$this->serializer->save($tmp, $data)) {
             $this->logFactory->getLogManager()->error(\sprintf('Error write to file "%s"', $tmp));
         } else {
-
             if ($this->perm) {
                 \chmod($tmp, $this->perm);
             }
@@ -96,7 +95,7 @@ try {
         return false;
     }
 
-    public function remove(Storable $storable ): bool
+    public function remove(StorableInterface $storable): bool
     {
         $fileName = $this->path . $storable->getBaseName();
         $this->removeFile($fileName . '.bak' . $this->serializer->getExt());

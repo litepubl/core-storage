@@ -2,17 +2,17 @@
 
 namespace litepubl\core\storage;
 
-class CompositeStorable implements Storable
+class CompositeStorable implements StorableInterface
 {
     protected $items;
     protected $baseName = 'composite';
 
-    public function __construct(Storable ... $items)
+    public function __construct(StorableInterface ... $items)
     {
         $this->items = $items;
     }
 
-    public function add(Storable $storable)
+    public function add(StorableInterface $storable)
     {
         $this->items[] = $storable;
     }

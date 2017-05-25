@@ -3,7 +3,7 @@ namespace litepubl\core\storage;
 
 use litepubl\core\Storage\Locker;
 
-class Pool implements PoolInterface, Storable
+class Pool implements PoolInterface, StorableInterface
 {
     protected $data;
     protected $instances;
@@ -39,18 +39,18 @@ class Pool implements PoolInterface, Storable
         $this->data = $data + $this->data;
     }
 
-    public function getFilename(Storable $storable): string
+    public function getFilename(StorableInterface $storable): string
     {
         return $storable->getBaseName();
     }
 
-    public function has(Storable $storable): bool
+    public function has(StorableInterface $storable): bool
     {
         $base = $storable->getBaseName();
         return isset($this->data[$base]) || isset($this->instances[$base]);
     }
 
-    public function save(Storable $storable): bool
+    public function save(StorableInterface $storable): bool
     {
         $this->modified = true;
         $base = $storable->getBaseName();
@@ -58,7 +58,7 @@ class Pool implements PoolInterface, Storable
         return true;
     }
 
-    public function load(Storable $storable): bool
+    public function load(StorableInterface $storable): bool
     {
         $base = $storable->getbasename();
         if (isset($this->data[$base])) {
@@ -72,7 +72,7 @@ class Pool implements PoolInterface, Storable
             return true;
     }
 
-    public function remove(Storable $storable): bool
+    public function remove(StorableInterface $storable): bool
     {
         $base = $storable->getbasename();
         if (isset($this->data[$base])) {
