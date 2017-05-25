@@ -4,9 +4,10 @@ namespace litepubl\core\storage;
 
 trait StorableTrait
 {
+    protected $baseName = 'data';
     protected $data = [];
-    protected $storage;
     protected $lockCount = 0;
+    protected $storage;
 
     public function getStorage(): StorageInterface
     {
@@ -15,17 +16,27 @@ trait StorableTrait
 
     public function getBaseName(): string
     {
-        return 'data';
+        return $this->baseName;
     }
 
     public function getData(): array
     {
-        return $this->data;
+        $result = $this->data;
+
+        if ($this instance of SubStorablesInterface) {
+                $result = $this->getSubData($result);
+        }
+
+        return $result;
     }
 
     public function setData(array $data): void
     {
-        $this->data = $data + $this->data;
+        if ($this instance of SubStorablesInterface) {
+                $data = $this->setSubData($data);
+        }
+
+        $this->data = $data;
     }
 
     public function load(): bool
