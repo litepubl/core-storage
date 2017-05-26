@@ -4,7 +4,6 @@ namespace litepubl\core\storage;
 
 trait ItemsStorableTrait
 {
-    protected $storage;
     protected $baseName = 'items';
 
     public function __construct(StorageInterface $storage)
@@ -17,21 +16,6 @@ trait ItemsStorableTrait
     public function getStorage(): StorageInterface
     {
         return $this->storage;
-    }
-
-    public function getBaseName(): string
-    {
-        return $this->basename;
-    }
-
-    public function getData(): array
-    {
-        return $this->items;
-    }
-
-    public function setData(array $data): void
-    {
-        $this->items = $data;
     }
 
     public function load(): bool

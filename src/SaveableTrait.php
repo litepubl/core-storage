@@ -6,7 +6,7 @@ trait SaveableTrait
 {
     protected $lockCount = 0;
 
-//abstract public function getStorage(): StorageInterface;
+    abstract public function getStorage(): StorageInterface;
 
     public function load(): bool
     {
