@@ -19,16 +19,16 @@ class MemCacheStorage implements StorageInterface
         $this->lifetime = $lifetime;
     }
 
-    public function getFilename(Storable $storable): string
+    public function getFilename(StorableInterface $storable): string
     {
         return $this->prefix . $storable->getBaseName() . $this->serializer->getExt();
     }
 
-    public function has(Storable $storable): bool
+    public function has(StorableInterface $storable): bool
     {
         return !empty($this->memcache->get($this->getFileName($storable)));
     }
-    public function load(Storable $storable): bool
+    public function load(StorableInterface $storable): bool
     {
             $fileName = $this->getFileName($storable);
         if ($s = $this->memcache->get($fileName)) {
@@ -42,12 +42,12 @@ class MemCacheStorage implements StorageInterface
         return false;
     }
 
-    public function save(Storable $storable): bool
+    public function save(StorableInterface $storable): bool
     {
         return $this->memcache->set($this->getFileName($storable), $this->serializer->serialize($storable->getData()), false, $this->lifetime);
     }
 
-    public function remove(Storable $storable ): bool
+    public function remove(StorableInterface $storable): bool
     {
         return $this->memcache->delete($this->getFileName($storable));
     }

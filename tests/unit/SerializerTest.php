@@ -19,16 +19,16 @@ class SerializerTest extends \Codeception\Test\Unit
 
     private function testSerializer(SerializerInterface $serializer)
     {
-$data = new Data();
-        $s = $serializer->serialize($data->mok);
+        $data = new Mok();
+        $s = $serializer->serialize($data->data);
         $a = $serializer->unserialize($s);
-        $this->assertEquals($data->mok, $a);
+        $this->assertEquals($data->data, $a);
 
         $fileName = \Codeception\Configuration::outputDir() . '/serializer' . $serializer->getExt();
-        $serializer->save($fileName, $data->mok);
+        $serializer->save($fileName, $data->data);
         $this->assertFileExists($fileName);
         $a = $serializer->load($fileName);
-        $this->assertEquals($data->mok, $a);
+        $this->assertEquals($data->data, $a);
         unlink($fileName);
     }
 }

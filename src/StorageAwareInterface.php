@@ -2,7 +2,8 @@
 
 namespace litepubl\core\storage;
 
-interface StorageAware
+interface StorageAwareInterface
 {
+    public function getStorage(): StorageInterface;
     public function setStorage(StorageInterface $storage);
 }

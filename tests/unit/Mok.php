@@ -2,14 +2,9 @@
 
 namespace litepubl\tests\storage;
 
-use litepubl\core\storage\Storable;
-use litepubl\core\storage\StorableTrait;
-
-class Data implements Storable
+class Mok
 {
-    use StorableTrait;
-
-    public $mok = [
+    public $data = [
     's' => 'v',
     'i' => 4,
     'b' => false,

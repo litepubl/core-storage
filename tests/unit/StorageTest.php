@@ -5,24 +5,26 @@ namespace litepubl\tests\storage;
 use litepubl\core\storage\StorageInterface;
 use litepubl\core\storage\Storage;
 use litepubl\core\storage\Pool;
+use litepubl\core\storage\PoolInterface;
 use litepubl\core\storage\LockerInterface;
 use litepubl\core\storage\FileLocker;
 use litepubl\core\storage\MemCacheStorage;
 use litepubl\core\storage\Composite;
-use litepubl\core\storage\Storable;
+use litepubl\core\storage\StorableInterface;
+use litepubl\core\storage\Data;
 use litepubl\core\storage\serializer\SerializerInterface;
 use litepubl\core\storage\serializer\JSon;
 use litepubl\core\storage\serializer\Php;
 use litepubl\core\storage\serializer\Serialize;
 use litepubl\core\logmanager\LogManagerInterface;
-use litepubl\core\logmanager\LazyProxy;
+use litepubl\core\logmanager\LazyFactory;
 
 class StorageTest extends \Codeception\Test\Unit
 {
     public function testMe()
     {
         $serializer = new Php();
-        $logManager = new LazyProxy(
+        $logManager = new LazyFactory(
             function () {
                 $manager = $this->prophesize(LogManagerInterface::class);
                 return $manager->reveal();
@@ -31,10 +33,12 @@ class StorageTest extends \Codeception\Test\Unit
 
         $storage = new Storage($serializer, $logManager, \Codeception\Configuration::outputDir(), 0666);
         $this->assertInstanceOf(Storage::class, $storage);
+        $this->assertInstanceOf(StorageInterface::class, $storage);
         $this->testStorage($storage);
 
         $pool = new Pool($storage, new FileLocker(\Codeception\Configuration::outputDir() . 'storage.lok'));
         $this->assertInstanceOf(Pool::class, $pool);
+        $this->assertInstanceOf(PoolInterface::class, $pool);
         $this->testStorage($pool);
         $pool->commit();
 
@@ -56,12 +60,13 @@ class StorageTest extends \Codeception\Test\Unit
     private function testStorage(StorageInterface $storage)
     {
         $data = new Data();
-        $data->setData($data->mok);
+        $mok = new Mok();
+        $data->setData($mok->data);
 
         $this->assertTrue($storage->save($data));
         $data = new Data();
         $this->assertTrue($storage->load($data));
-        $this->assertEquals($data->mok, $data->getData());
+        $this->assertEquals($mok->data, $data->getData());
 
         $this->assertTrue($storage->has($data));
         $storage->remove($data);
