@@ -1,6 +1,8 @@
 <?php
 
-namespace litepubl\core\storage;
+namespace litepubl\core\storage\storables;
+
+use litepubl\core\storage\StorageInterface;
 
 trait SaveableTrait
 {

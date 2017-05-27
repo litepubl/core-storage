@@ -1,6 +1,6 @@
 <?php
 
-namespace litepubl\core\storage;
+namespace litepubl\core\storage\storables;
 
 interface StorableInterface
 {

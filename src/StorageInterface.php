@@ -2,6 +2,8 @@
 
 namespace litepubl\core\storage;
 
+use litepubl\core\storage\storables\StorableInterface;
+
 interface StorageInterface
 {
     public function has(StorableInterface $storable): bool;

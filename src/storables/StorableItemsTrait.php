@@ -1,11 +1,10 @@
 <?php
 
-namespace litepubl\core\storage;
+namespace litepubl\core\storage\storables;
 
-trait StorableTrait
+trait StorableItemsTrait
 {
-    protected $baseName = 'data';
-    protected $data = [];
+    protected $baseName = 'items';
 
     public function getBaseName(): string
     {
@@ -14,11 +13,11 @@ trait StorableTrait
 
     public function getData(): array
     {
-        return $this->data;
+        return $this->items;
     }
 
     public function setData(array $data): void
     {
-        $this->data = $data;
+        $this->items = $data;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace litepubl\core\storage;
 
+use litepubl\core\storage\storables\StorableInterface;
 use litepubl\core\storage\serializer\SerializerInterface;
 use litepubl\core\logmanager\FactoryInterface as LogFactory;
 

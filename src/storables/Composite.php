@@ -1,8 +1,8 @@
 <?php
 
-namespace litepubl\core\storage;
+namespace litepubl\core\storage\storables;
 
-class CompositeStorable implements StorableInterface
+class Composite implements StorableInterface
 {
     protected $items;
     protected $baseName = 'composite';
