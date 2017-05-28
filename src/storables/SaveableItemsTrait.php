@@ -2,7 +2,7 @@
 
 namespace litepubl\core\storage;
 
-trait ItemsStorableTrait
+trait SaveableItemsTrait
 {
     protected $baseName = 'items';
 

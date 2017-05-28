@@ -4,6 +4,8 @@ namespace litepubl\core\storage\storables;
 
 class Composite implements StorableInterface
 {
+    use StorableItemsTrait;
+
     protected $items;
     protected $baseName = 'composite';
 
@@ -24,21 +26,11 @@ class Composite implements StorableInterface
 
     public function getData(): array
     {
-        $result = [];
-        foreach ($this->items as $instance) {
-                $result[$instance->getBaseName()] = $instance->getData();
-        }
-
-        return $result;
+        return $this->getSttorableData($this->items);
     }
 
     public function setData(array $data)
     {
-        foreach ($this->items as $instance) {
-                $baseName = $instance->getBaseName();
-            if (isset($data[$baseName])) {
-                $instance->setData($data[$baseName]);
-            }
-        }
+        return $this->setStorableData($this->items, $data);
     }
 }

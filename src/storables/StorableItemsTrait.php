@@ -4,20 +4,24 @@ namespace litepubl\core\storage\storables;
 
 trait StorableItemsTrait
 {
-    protected $baseName = 'items';
 
-    public function getBaseName(): string
+    protected function getStorableData($items): array
     {
-        return $this->baseName;
+        $result = [];
+        foreach ($items as $instance) {
+                $result[$instance->getBaseName()] = $instance->getData();
+        }
+
+        return $result;
     }
 
-    public function getData(): array
+    protected function setStorableData($items, array $data)
     {
-        return $this->items;
-    }
-
-    public function setData(array $data): void
-    {
-        $this->items = $data;
+        foreach ($items as $instance) {
+                $baseName = $instance->getBaseName();
+            if (isset($data[$baseName])) {
+                $instance->setData($data[$baseName]);
+            }
+        }
     }
 }
