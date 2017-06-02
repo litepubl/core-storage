@@ -9,16 +9,17 @@ trait SaveableTrait
     protected $lockCount = 0;
 
     abstract public function getStorage(): StorageInterface;
+    abstract public function getStorable(): StorableInterface;
 
     public function load(): bool
     {
-        return $this->getStorage()->load($this);
+        return $this->getStorage()->load($this->getStorable());
     }
 
     public function save(): bool
     {
         if ($this->lockCount == 0) {
-            return $this->getStorage()->save($this);
+            return $this->getStorage()->save($this->getStorable);
         }
 
         return false;
