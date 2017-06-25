@@ -1,11 +1,11 @@
 <?php
 
-namespace litepubl\tests\storage;
+namespace litepubl\tests\Storage;
 
-use litepubl\core\storage\serializer\SerializerInterface;
-use litepubl\core\storage\serializer\JSon;
-use litepubl\core\storage\serializer\Php;
-use litepubl\core\storage\serializer\Serialize;
+use LitePubl\Core\Storage\Serializer\SerializerInterface;
+use LitePubl\Core\Storage\Serializer\JSon;
+use LitePubl\Core\Storage\Serializer\Php;
+use LitePubl\Core\Storage\Serializer\Serialize;
 
 class SerializerTest extends \Codeception\Test\Unit
 {

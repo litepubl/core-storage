@@ -1,5 +1,5 @@
 <?php
-namespace litepubl\core\storage;
+namespace LitePubl\Core\Storage;
 
 class FileLocker implements LockerInterface
 {

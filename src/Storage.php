@@ -1,10 +1,10 @@
 <?php
 
-namespace litepubl\core\storage;
+namespace LitePubl\Core\Storage;
 
-use litepubl\core\storage\storables\StorableInterface;
-use litepubl\core\storage\serializer\SerializerInterface;
-use litepubl\core\logmanager\FactoryInterface as LogFactory;
+use LitePubl\Core\Storage\Storables\StorableInterface;
+use LitePubl\Core\Storage\Serializer\SerializerInterface;
+use LitePubl\Core\LogManager\FactoryInterface as LogFactory;
 
 class Storage implements StorageInterface
 {
@@ -34,7 +34,8 @@ class Storage implements StorageInterface
             }
         } catch (\Throwable $e) {
             $this->logFactory->getLogManager()->logException(
-                $e, [
+                $e,
+                [
                 'filename' => $fileName,
                 'serializer' => get_class($this->serializer),
                 ]
@@ -50,7 +51,8 @@ class Storage implements StorageInterface
                 return $this->saveFile($this->path . $storable->getBaseName(), $this->serializer->getExt(), $storable->getData());
         } catch (\Throwable $e) {
             $this->logFactory->getLogManager()->logException(
-                $e, [
+                $e,
+                [
                 'storable' => get_class($storable),
                 'serializer' => get_class($this->serializer),
                 ]

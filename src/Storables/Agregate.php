@@ -1,10 +1,10 @@
 <?php
 
-namespace litepubl\core\storage\storables;
+namespace LitePubl\Core\Storage\Storables;
 
-use litepubl\core\storage\StorageInterface;
+use LitePubl\Core\Storage\StorageInterface;
 
-class Saveable implements SaveableInterface
+class Agregate implements SaveableInterface
 {
     use SaveableTrait;
 
@@ -15,6 +15,12 @@ class Saveable implements SaveableInterface
     {
         $this->storable = $storable;
         $this->storage = $storage;
+
+        if ($storable instanceof SaveableAwareInterface) {
+                $storable->setSaveable($this);
+        }
+
+        $this->load();
     }
 
     public function getStorage(): StorageInterface

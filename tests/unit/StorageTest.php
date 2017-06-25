@@ -1,23 +1,23 @@
 <?php
 
-namespace litepubl\tests\storage;
+namespace litepubl\tests\Storage;
 
-use litepubl\core\storage\StorageInterface;
-use litepubl\core\storage\Storage;
-use litepubl\core\storage\Pool;
-use litepubl\core\storage\PoolInterface;
-use litepubl\core\storage\LockerInterface;
-use litepubl\core\storage\FileLocker;
-use litepubl\core\storage\MemCacheStorage;
-use litepubl\core\storage\Composite;
-use litepubl\core\storage\storables\StorableInterface;
-use litepubl\core\storage\storables\Data;
-use litepubl\core\storage\serializer\SerializerInterface;
-use litepubl\core\storage\serializer\JSon;
-use litepubl\core\storage\serializer\Php;
-use litepubl\core\storage\serializer\Serialize;
-use litepubl\core\logmanager\LogManagerInterface;
-use litepubl\core\logmanager\LazyFactory;
+use LitePubl\Core\Storage\StorageInterface;
+use LitePubl\Core\Storage\Storage;
+use LitePubl\Core\Storage\Pool;
+use LitePubl\Core\Storage\PoolInterface;
+use LitePubl\Core\Storage\LockerInterface;
+use LitePubl\Core\Storage\FileLocker;
+use LitePubl\Core\Storage\MemCacheStorage;
+use LitePubl\Core\Storage\Composite;
+use LitePubl\Core\Storage\Storables\StorableInterface;
+use LitePubl\Core\Storage\Storables\Data;
+use LitePubl\Core\Storage\Serializer\SerializerInterface;
+use LitePubl\Core\Storage\Serializer\JSon;
+use LitePubl\Core\Storage\Serializer\Php;
+use LitePubl\Core\Storage\Serializer\Serialize;
+use LitePubl\Core\LogManager\LogManagerInterface;
+use LitePubl\Core\LogManager\LazyFactory;
 
 class StorageTest extends \Codeception\Test\Unit
 {

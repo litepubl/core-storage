@@ -8,7 +8,7 @@
  * @version   7.07
   */
 
-namespace litepubl\core\storage\serializer;
+namespace LitePubl\Core\Storage\Serializer;
 
 class Serialize implements SerializerInterface
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace litepubl\core\storage;
+namespace LitePubl\Core\Storage;
 
-use litepubl\core\storage\storables\StorableInterface;
-use litepubl\core\storage\serializer\SerializerInterface;
+use LitePubl\Core\Storage\Storables\StorableInterface;
+use LitePubl\Core\Storage\Serializer\SerializerInterface;
 
 class MemCacheStorage implements StorageInterface
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace litepubl\core\storage\storables;
+namespace LitePubl\Core\Storage\Storables;
 
 class Composite implements StorableInterface
 {
-    use StorableItemsTrait;
+    use CompositeTrait;
 
     protected $items;
     protected $baseName = 'composite';
@@ -26,11 +26,11 @@ class Composite implements StorableInterface
 
     public function getData(): array
     {
-        return $this->getSttorableData($this->items);
+        return $this->getItemsData($this->items);
     }
 
     public function setData(array $data)
     {
-        return $this->setStorableData($this->items, $data);
+        $this->setItemsData($this->items, $data);
     }
 }

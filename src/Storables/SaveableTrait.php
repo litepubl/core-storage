@@ -1,15 +1,19 @@
 <?php
 
-namespace litepubl\core\storage\storables;
+namespace LitePubl\Core\Storage\Storables;
 
-use litepubl\core\storage\StorageInterface;
+use LitePubl\Core\Storage\StorageInterface;
 
 trait SaveableTrait
 {
     protected $lockCount = 0;
 
     abstract public function getStorage(): StorageInterface;
-    abstract public function getStorable(): StorableInterface;
+
+    public function getStorable(): StorableInterface
+    {
+        return $this;
+    }
 
     public function load(): bool
     {

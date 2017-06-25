@@ -1,6 +1,6 @@
 <?php
 
-namespace litepubl\core\storage\serializer;
+namespace LitePubl\Core\Storage\Serializer;
 
 interface SerializerInterface
 {

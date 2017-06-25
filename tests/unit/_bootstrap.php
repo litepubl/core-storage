@@ -2,6 +2,6 @@
 // Here you can initialize variables that will be available to your tests
 use Codeception\Util\Autoload;
 
-Autoload::addNamespace('litepubl\tests\storage', __DIR__);
-Autoload::addNamespace('litepubl\core\storage', __DIR__ . '/../../src');
-Autoload::addNamespace('litepubl\core\logmanager', __DIR__ . '/../../../logmanager/src');
+Autoload::addNamespace('litepubl\tests\Storage', __DIR__);
+Autoload::addNamespace('LitePubl\Core\Storage', __DIR__ . '/../../src');
+Autoload::addNamespace('LitePubl\Core\LogManager', __DIR__ . '/../../../logmanager/src');

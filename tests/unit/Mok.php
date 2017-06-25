@@ -1,6 +1,6 @@
 <?php
 
-namespace litepubl\tests\storage;
+namespace litepubl\tests\Storage;
 
 class Mok
 {
