@@ -1,6 +1,9 @@
 <?php
 
-namespace LitePubl\Core\Storage;
+namespace LitePubl\Storage\Storage;
+
+use LitePubl\Storage\Interfaces\SaveableInterface;
+use LitePubl\Storage\Interfaces\StorageInterface;
 
 trait StorageAwareTrait
 {

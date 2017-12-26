@@ -1,6 +1,6 @@
 <?php
 
-namespace litepubl\tests\Storage;
+namespace LitePubl\Tests\Storage;
 
 use LitePubl\Core\Storage\StorageInterface;
 use LitePubl\Core\Storage\Storage;

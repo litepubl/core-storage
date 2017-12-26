@@ -1,5 +1,8 @@
 <?php
-namespace LitePubl\Core\Storage;
+
+namespace LitePubl\Storage\Pool;
+
+use LitePubl\Storage\Interfaces\LockerInterface;
 
 class FileLocker implements LockerInterface
 {

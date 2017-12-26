@@ -1,8 +1,12 @@
 <?php
-namespace LitePubl\Core\Storage;
 
-use LitePubl\Core\Storage\Storables\StorableInterface;
-use LitePubl\Core\Storage\Locker;
+namespace LitePubl\Storage\Pool;
+
+use LitePubl\Storage\Interfaces\LockerInterface;
+use LitePubl\Storage\Interfaces\PoolInterface;
+use LitePubl\Storage\Interfaces\StorableInterface;
+use LitePubl\Storage\Interfaces\StorageInterface;
+use LitePubl\Storage\Locker;
 
 class Pool implements PoolInterface, StorableInterface
 {

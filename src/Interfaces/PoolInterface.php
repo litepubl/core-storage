@@ -1,6 +1,6 @@
 <?php
 
-namespace LitePubl\Core\Storage;
+namespace LitePubl\Storage\Interfaces;
 
 interface PoolInterface extends StorageInterface
 {

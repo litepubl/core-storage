@@ -1,8 +1,6 @@
 <?php
 
-namespace LitePubl\Core\Storage;
-
-use LitePubl\Core\Storage\Storables\StorableInterface;
+namespace LitePubl\Storage\Interfaces;
 
 interface StorageInterface
 {

@@ -1,8 +1,9 @@
 <?php
 
-namespace LitePubl\Core\Storage;
+namespace LitePubl\Storage\Storage;
 
-use LitePubl\Core\Storage\Storables\StorableInterface;
+use LitePubl\Storage\Interfaces\StorableInterface;
+use LitePubl\Storage\Interfaces\StorageInterface;
 
 class Composite implements StorageInterface
 {

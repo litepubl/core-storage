@@ -1,10 +1,11 @@
 <?php
 
-namespace LitePubl\Core\Storage;
+namespace LitePubl\Storage\Storage;
 
-use LitePubl\Core\Storage\Storables\StorableInterface;
-use LitePubl\Core\Storage\Serializer\SerializerInterface;
-use LitePubl\Core\LogManager\FactoryInterface as LogFactory;
+use LitePubl\LogManager\FactoryInterface as LogFactory;
+use LitePubl\Storage\Interfaces\SerializerInterface;
+use LitePubl\Storage\Interfaces\StorableInterface;
+use LitePubl\Storage\Interfaces\StorageInterface;
 
 class Storage implements StorageInterface
 {
